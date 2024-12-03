@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('public/fonts/Inter-Regular.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('public/fonts/Inter-Medium.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('public/fonts/Inter-Bold.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('public/fonts/Inter-ExtraBold.woff2') format('woff2');
+  }
+  html {
+    font-family: 'Inter', sans-serif;
+  }
+  :root {
+    --chart20: theme('colors.charts.20');
+    --chart40: theme('colors.charts.40');
+    --chart60: theme('colors.charts.60');
+    --chart80: theme('colors.charts.80');
+  }
+  .blurred {
+    filter: blur(5px);
+    transition: filter 0.3s ease;
+  }
+}
+
+@layer components {
+  .sidebar {
+    @apply bg-grey-400 h-full py-0 pl-6 pr-5 transition-all duration-300 ease-in-out;
+  }
+  .screen-title {
+    @apply mb-5 text-2xl font-bold leading-38 text-black-900;
+  }
+  .table-title {
+    @apply text-xl font-bold leading-24 text-black-800;
+  }
+  .rdp-vhidden {
+    @apply hidden;
+  }
+}

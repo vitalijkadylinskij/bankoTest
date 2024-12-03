@@ -1,0 +1,203 @@
+{
+  "biAnalytics": {
+    "title": "BI-аналитика",
+    "buttons": {
+      "exportBtn": "Экспортировать"
+    },
+    "gbvChart": {
+      "title": "Аналитика ВБС КП",
+      "subtitle": "Общая стоимость"
+    },
+    "gbvStageChart": {
+      "title": "Анализ ВБС через стадии",
+      "stages": {
+        "product1": "Стадия 1",
+        "product2": "Стадия 2",
+        "product3": "Стадия 3",
+        "product4": "POCI"
+      }
+    },
+    "riskMetricsChart": {
+      "title": "Основные риск-метрики (1-2 стадия)",
+      "headers": [
+        "PD (1 стадия)",
+        "LGD (1 стадия)",
+        "EAD (1 стадия)",
+        "PD (2 стадия)",
+        "LGD (2 стадия)",
+        "EAD (2 стадия)"
+      ],
+      "footer": ["Портфель"]
+    }
+  },
+  "dashboard": {
+    "title": "Дашборд",
+    "buttons": {
+      "exportBtn": "Экспортировать"
+    },
+    "creditListBtn": "См. все кредиты",
+    "tables": {
+      "pdTable": {
+        "title": "Probability Default (PD) (исторический)",
+        "ranges": {"range1":"0", "range2":"0-30", "range3":"30-60", "range4":"60-90", "range5":"90+"},
+        "types": {"type1": "cPD", "type2":"mPD"},
+        "buttons": {
+          "yearBtn": "По годам",
+          "quarterBtn": "По кварталам",
+          "monthBtn": "По месяцам"
+        }
+      },
+      "lgdTable": {
+        "title": "LGD",
+        "firstLvlHeaders": {
+          "header1": "",
+          "header2": "1-ая и 2-ая стадия",
+          "header3": "3-ая стадия"
+        },
+        "secondLvlHeaders": {
+          "header1": "Нахождение в дефолте - \"X\" год",
+          "header2": "",
+          "header3": "X < 1 года",
+          "header4": "1 года < X < 2 лет",
+          "header5": "2 года < X < 3 лет",
+          "header6": "X > 3 лет"
+        },
+        "thirdLvlHeaders": {
+          "header1": "RR",
+          "header2": "LGD"
+        },
+        "fourthLvlHeaders": {
+          "header1": "Вероятность выздоровления",
+          "header2": "Макрофактор для Стадии 3"
+        }
+      },
+      "eadTable": {
+        "title": "EAD",
+        "firstLvlHeaders": {
+          "header1": "",
+          "header2": "Оборот по дебету",
+          "header3": "CCF"
+        },
+        "secondLvlHeaders": {
+          "header1": "Стадия 1",
+          "header2": "Стадия 2",
+          "header3": "Стадия 3",
+          "header4": "POCI"
+        }
+      },
+      "eclTable": {
+        "title": "Ожидаемые кредитные убытки",
+        "moneyTable": {
+          "firstLvlHeaders": {
+            "header1": "",
+            "header2": "Кредиты",
+            "header3": "Усл. обязательства"
+          },
+          "secondLvlHeaders": {
+            "header1": "По данным банка на "
+          }
+        },
+        "countTable": {
+          "firstLvlHeaders": {
+            "header1": "Остаток\nзадолженности",
+            "header2": "По данным\nбанка",
+            "header3": "Процент\nрезервирования"
+          },
+          "secondLvlHeaders": {
+            "header1": "Стадия 1",
+            "header2": "Стадия 2",
+            "header3": "Стадия 3",
+            "header4": "Усл"
+          }
+        }
+      }
+    }
+  },
+  "header": {
+    "navs": {
+      "dashboard": "Дашборд",
+      "biAnalytics": "BI-аналитика",
+      "stressTesting": "Стресс-тестирование"
+    }
+  },
+  "sidebar": {
+    "debtorForm": {
+      "debtorType": {
+        "title": "Тип должника",
+        "default": "Выберите тип должника",
+        "items": {"item1": "Розничный", "item2": "Корпоративный"}
+      },
+      "creditType": {
+        "title": "Вид кредита",
+        "default": "Выберите тип кредита",
+        "items": {"item1":"Потребительский", "item2": "Ипотечный"}
+      },
+      "productType": {
+        "title": "Вид продукта",
+        "default": "Выберите тип продукта",
+        "items": {"item1":"Залоговые", "item2":"Беззалоговые"}
+      },
+      "date": {
+        "title": "Дата",
+        "default": "Выберите дату"
+      }
+    },
+    "macroSettings": {
+      "title": "Макро показатели",
+      "subtext": "Для формирования таблиц с расчетами добавьте информацию о макро показателях",
+      "modal": {
+        "addTitle": "Добавить макро показатель",
+        "editTitle": "Редактировать макро показатель",
+        "macroTypes": {
+          "default": "Выберите тип",
+          "items": {"rrdn":"РРДН", "nnzp":"ННЗП"}
+        },
+        "subtitles": {
+          "scenario": "Сценарий",
+          "value": "Значение",
+          "probability": "Вероятность",
+          "scenariosFull": {"worst": "Худший", "normal":"Нормальный", "best": "Лучший"},
+          "scenariosShort": {"worst": "Худш", "normal":"Норм", "best": "Лучш"}
+        },
+        "buttons": {
+          "saveBtn": "Сохранить",
+          "cancelBtn": "Отмена",
+          "recalculate": "Пересчитать"
+        }
+      }
+    }
+  },
+  "customTable": {
+    "noResult": "Нет результатов",
+    "buttons": {
+      "up": "По возрастанию",
+      "down": "По убыванию",
+      "hide": "Спрятать"
+    },
+    "findOptions": {
+      "noResult": "Результат не найден",
+      "clearFilter": "Очистить фильтр"
+    },
+    "pagination":{
+      "page": "Страница"
+    },
+    "actions": {
+      "delete": "Удалить",
+      "edit": "Изменить",
+      "favorite": "В избранное",
+      "forChecking": "На проверку"
+    },
+    "toolbar": {
+      "reset": "Сбросить",
+      "view": "Отображение"
+    }
+  },
+  "navbar": {
+    "profile": "Профиль",
+    "logOut": "Выйти"
+  },
+  "importModule": {
+    "title": "Загрузить документы",
+    "subtitle": "Перетащите сюда свои файлы или нажмите кнопку для просмотра файлов"
+  }
+}

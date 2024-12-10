@@ -35,7 +35,7 @@ export const MacroSettingsModal: FC<MacroSettingsModalProps> = ({
       values[year as string | number] = {};
       scenarios.forEach((scenario: string) => {
         values[year as string | number][scenario as string] = {
-          value: -1,
+          value: 0,
           probability: 0,
         };
       });

@@ -11,7 +11,7 @@ function RootComponent() {
     <div className="flex min-h-screen w-full">
       <Outlet />
       <TanStackRouterDevtools position="bottom-right" />
-      <Toaster position="bottom-right" richColors />
+      <Toaster expand={true} position="bottom-right" richColors />
     </div>
   )
 }

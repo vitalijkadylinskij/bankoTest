@@ -196,6 +196,11 @@
     "profile": "Профиль",
     "logOut": "Выйти"
   },
+  "errorsModal": {
+    "errorTypeMessage": "Type is required",
+    "errorValueMessage": "Value must be a non-negative number",
+    "errorProbabilityMessage": "The sum of probabilities must equal 100"
+  },
   "importModule": {
     "title": "Загрузить документы",
     "subtitle": "Перетащите сюда свои файлы или нажмите кнопку для просмотра файлов"

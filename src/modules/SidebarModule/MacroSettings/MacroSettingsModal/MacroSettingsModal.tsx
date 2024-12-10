@@ -64,38 +64,29 @@ export const MacroSettingsModal: FC<MacroSettingsModalProps> = ({
 
   const macroSettingsSchema = z.object({
     id: z.string().optional(),
-    type: z.string().min(1, 'Type is required'),
+    type: z.string().min(1),
     values: z.record(
       z.string(),
       z.object({
         Лучш: z.object({
-          value: z.number().nonnegative('Value must be a non-negative number'),
-          probability: z
-            .number()
-            .nonnegative('Probability must be a non-negative number'),
+          value: z.number().nonnegative().min(0),
+          probability: z.number().min(0).max(100),
         }),
         Норм: z.object({
-          value: z.number().nonnegative('Value must be a non-negative number'),
-          probability: z
-            .number()
-            .nonnegative('Probability must be a non-negative number'),
+          value: z.number().nonnegative().min(0),
+          probability: z.number().min(0).max(100),
         }),
         Худш: z.object({
-          value: z.number().nonnegative('Value must be a non-negative number'),
-          probability: z
-            .number()
-            .nonnegative('Probability must be a non-negative number'),
+          value: z.number().nonnegative().min(0),
+          probability: z.number().min(0).max(100),
         }),
-      }).refine(data => {
-        // Считаем сумму вероятностей
-        const totalProbability = data.Лучш.probability + data.Норм.probability + data.Худш.probability;
-        // Проверяем, что сумма равна 100
-        return totalProbability === 100;
-      }, {
-        message: "The sum of probabilities must equal 100",
-      })
+      }).refine((data) => {
+        const totalProbability =
+          data.Худш.probability + data.Норм.probability + data.Лучш.probability;
+          return totalProbability === 100;
+      }),
     ),
-  })
+  });
 
   const form = useForm<MacroSettings>({
     defaultValues: createInitialFormState(),
@@ -122,7 +113,7 @@ export const MacroSettingsModal: FC<MacroSettingsModalProps> = ({
 
   const showToastForErrors = (errors: FieldErrors) => {
     if (errors.type) {
-      toast.error(`${errors.type.message}`);
+      toast.error(t('errorsModal.errorTypeMessage'));
     }
   
     const valuesErrors = errors.values;
@@ -130,38 +121,34 @@ export const MacroSettingsModal: FC<MacroSettingsModalProps> = ({
     if (Array.isArray(valuesErrors)) {
       valuesErrors.forEach((valError) => {
         if (valError.root && typeof valError.root === 'object') {
+
           console.log('Field Error Object:', valError);
-          if (valError.Лучш) {
-            if (valError.Лучш.value) {
-              toast.error(valError.Лучш.value.message);
+
+            if (valError.Лучш && valError.Лучш.value) {
+              toast.error(t('errorsModal.errorValueMessage'));
             }
-            if (valError.Лучш.probability) {
-              toast.error(valError.Лучш.probability.message);
+            if (valError.Норм && valError.Норм.value) {
+              toast.error(t('errorsModal.errorValueMessage'));
             }
-          }
-          if (valError.Норм) {
-            if (valError.Норм.value) {
-              toast.error(valError.Норм.value.message);
+            if (valError.Худш && valError.Худш.value) {
+              toast.error(t('errorsModal.errorValueMessage'));
             }
-            if (valError.Норм.probability) {
-              toast.error(valError.Норм.probability.message);
+            if (valError.Лучш && valError.Лучш.probability) {
+              toast.error(t('errorsModal.errorProbabilityMessage'));
             }
-          }
-          if (valError.Худш) {
-            if (valError.Худш.value) {
-              toast.error(valError.Худш.value.message);
+            if (valError.Норм && valError.Норм.probability) {
+              toast.error(t('errorsModal.errorProbabilityMessage'));
             }
-            if (valError.Худш.probability) {
-              toast.error(valError.Худш.probability.message);
+            if (valError.Худш && valError.Худш.probability) {
+              toast.error(t('errorsModal.errorProbabilityMessage'));
             }
-          }
         }
       });
     }
   };
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <Dialog open={isOpen} onOpenChange={onClose}>
+      <Dialog open={isOpen} onOpenChange={onClose} >
         <DialogContent className="sm:max-w-[25rem]">
           <DialogHeader>
             <DialogTitle>
@@ -179,7 +166,7 @@ export const MacroSettingsModal: FC<MacroSettingsModalProps> = ({
                 value={field.value}
                 disabled={!!editingIndicator}
               >
-                <SelectTrigger>
+                <SelectTrigger className={`border-2 p-2 rounded-md ${errors?.type ? 'border-red-500 text-red-500' : 'border-grey-600 text-black-800'}`}>
                   <SelectValue
                     placeholder={t(
                       'sidebar.macroSettings.modal.macroTypes.default'
@@ -232,16 +219,18 @@ export const MacroSettingsModal: FC<MacroSettingsModalProps> = ({
                       control={control}
                       render={({ field }) => (
                         <Input
-                          type="number"
+                          type="text"
                           {...field}
                           placeholder={t(
                             'sidebar.macroSettings.modal.subtitles.value'
                           )}
-                          className="mt-2 w-full"
-                          onChange={(e) =>
-                            field.onChange(Number(e.target.value))
-                          }
-                          onFocus={() => field.onChange('')}
+                          className={` mt-2 w-full appearance-none ${errors.values?.value ? 'border-red-500 text-red-500' : 'border border-grey-600 text-black-800'}`}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            if (/^\d*$/.test(value)) {
+                              field.onChange(Number(value));
+                            }
+                          }}
                         />
                       )}
                     />
@@ -252,16 +241,18 @@ export const MacroSettingsModal: FC<MacroSettingsModalProps> = ({
                       control={control}
                       render={({ field }) => (
                         <Input
-                          type="number"
+                          type="text"
                           {...field}
                           placeholder={t(
                             'sidebar.macroSettings.modal.subtitles.probability'
                           )}
-                          className="mt-2 w-full"
-                          onChange={(e) =>
-                            field.onChange(Number(e.target.value))
-                          }
-                          onFocus={() => field.onChange('')}
+                          className={` mt-2 w-full appearance-none ${errors.values?.probability ? 'border-red-500 text-red-500' : 'border border-grey-600 text-black-800'}`}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            if (/^\d*$/.test(value)) {
+                              field.onChange(Number(value));
+                            }
+                          }}
                         />
                       )}
                     />
